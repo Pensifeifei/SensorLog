@@ -7,8 +7,14 @@
 //
 
 #import "AppDelegate.h"
+//#import "ACCitem.h"
+#import "APLGraphViewController.h"
 
 @interface AppDelegate ()
+
+{
+    CMMotionManager *motionManager;
+}
 
 @end
 
@@ -16,30 +22,71 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
     return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+//    [[self cdh] saveContext];
+
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+//    [self cdh];
+//    [self demo];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+//    [[self cdh] saveContext];
+
+}
+
+#pragma mark - coreData
+
+#define debug 1
+
+//- (CoreDataHelper *)cdh
+//{
+//    if (debug == 1) {
+//        MARK;
+//    }
+//    if (!_coreDataHelper) {
+//        _coreDataHelper = [CoreDataHelper new];
+//        _coreDataHelper.storeFileName = @"ACC-Data.sqlite";
+//        [_coreDataHelper setupCoreData];
+//    }
+//    return _coreDataHelper;
+//}
+
+//- (void)demo
+//{
+//    if (debug == 1) {
+//        MARK;
+//    }
+//    NSArray *newItemACC_Xs = [NSArray arrayWithObjects:@9.8, @9.9,@9.7,@9.6,nil];
+//    for(NSNumber *num in newItemACC_Xs){
+//        ACCitem *newItem = [NSEntityDescription insertNewObjectForEntityForName:@"ACCitem" inManagedObjectContext:_coreDataHelper.managedObjectContext];
+//        newItem.acc_x = num;
+//        NSLog(@"Insert New managed object for '%@'",newItem.acc_x);
+//    }
+//    
+//}
+
+#pragma mark - coreMotionManager
+
+- (CMMotionManager *)shareManager
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        motionManager = [[CMMotionManager alloc] init];
+    });
+    return motionManager;
 }
 
 @end

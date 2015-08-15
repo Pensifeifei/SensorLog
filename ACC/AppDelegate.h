@@ -7,10 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+//#import "CoreDataHelper.h"
+#import <CoreMotion/CoreMotion.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+//@property (strong, readonly, nonatomic) CoreDataHelper *coreDataHelper;
+
+@property (strong, readonly, nonatomic) CMMotionManager *shareManager;
 
 
 @end
