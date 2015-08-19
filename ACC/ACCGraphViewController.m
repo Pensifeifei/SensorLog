@@ -28,6 +28,12 @@ static const double accelerometerHzMin = 1;
     
     NSTimer *timerOfRecord;
     float timeOfSeconds;
+    
+    double quat_w;
+    double quat_x;
+    double quat_y;
+    double quat_z;
+    NSString *quat_date;
 }
 
 @property (nonatomic, weak) IBOutlet APLGraphView *graphView;
@@ -104,15 +110,14 @@ static const double accelerometerHzMin = 1;
     NSTimeInterval updateInterval = 1/recordingRateHz;
     
     CMMotionManager *mManager = [(AppDelegate *)[[UIApplication sharedApplication] delegate] shareManager];
-    CMQuaternion quat = mManager.deviceMotion.attitude.quaternion;
-    
     ACCGraphViewController * __weak weakSelf = self;
     if ([mManager isAccelerometerAvailable] == YES) {
         [mManager setAccelerometerUpdateInterval:updateInterval];
         [mManager startAccelerometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {
             [weakSelf.graphView addX:accelerometerData.acceleration.x y:accelerometerData.acceleration.y z:accelerometerData.acceleration.z];
             [weakSelf setLabelValueX:accelerometerData.acceleration.x y:accelerometerData.acceleration.y z:accelerometerData.acceleration.z];
-            
+            NSString *dateStr = [self toGetCurrentTimeToMiliSecondsStr];
+            NSLog(@"acc----date///%@",dateStr);
             if (isRecord) {
                 NSNumber *tempFlag = @0;
                 if (markFlag1) {
@@ -127,20 +132,48 @@ static const double accelerometerHzMin = 1;
                 //            NSLog(@"markFlag1   %d",markFlag1);
                 //            NSLog(@"markFlag2   %d",markFlag2);
                 NSString *dateStr = [self toGetCurrentTimeToMiliSecondsStr];
-                            NSLog(@"date///%@",dateStr);
+                NSLog(@"acc----date///%@",dateStr);
+                
+                
+
+                
                 ACCitem *newItem = [NSEntityDescription insertNewObjectForEntityForName:@"ACCitem" inManagedObjectContext:self.cdh.managedObjectContext];
                 newItem.acc_x = [NSNumber numberWithDouble:accelerometerData.acceleration.x];
                 newItem.acc_y = [NSNumber numberWithDouble:accelerometerData.acceleration.y];
                 newItem.acc_z = [NSNumber numberWithDouble:accelerometerData.acceleration.z];
                 newItem.date = dateStr;
                 newItem.mark_flag = tempFlag;
-                newItem.quat_w = [NSNumber numberWithDouble:quat.w];
-                newItem.quat_x = [NSNumber numberWithDouble:quat.x];
-                newItem.quat_y = [NSNumber numberWithDouble:quat.y];
-                newItem.quat_z = [NSNumber numberWithDouble:quat.z];
+//                newItem.quat_w = [NSNumber numberWithDouble:quat.w];
+//                newItem.quat_x = [NSNumber numberWithDouble:quat.x];
+//                newItem.quat_y = [NSNumber numberWithDouble:quat.y];
+//                newItem.quat_z = [NSNumber numberWithDouble:quat.z];
+                newItem.quat_w = [NSNumber numberWithDouble:quat_w];
+                newItem.quat_x = [NSNumber numberWithDouble:quat_x];
+                newItem.quat_y = [NSNumber numberWithDouble:quat_y];
+                newItem.quat_z = [NSNumber numberWithDouble:quat_z];
+                newItem.quat_date = quat_date;
             }
         }];
     }
+    
+    if ([mManager isDeviceMotionAvailable] == YES) {
+        [mManager setDeviceMotionUpdateInterval:updateInterval];
+        [mManager startDeviceMotionUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMDeviceMotion *deviceMotion, NSError *error) {
+            CMQuaternion quat = mManager.deviceMotion.attitude.quaternion;
+//            NSLog(@"--------------------%f",quat.w);
+//            NSLog(@"--------------------%f",quat.x);
+//            NSLog(@"--------------------%f",quat.y);
+//            NSLog(@"--------------------%f",quat.z);
+            NSString *dateStr = [self toGetCurrentTimeToMiliSecondsStr];
+            NSLog(@"device----date///%@",dateStr);
+            quat_w = quat.w;
+            quat_x = quat.x;
+            quat_y = quat.y;
+            quat_z = quat.z;
+            quat_date = dateStr;
+        }];
+    }
+
     
 //    self.updateIntervalLabel.text = [NSString stringWithFormat:@"%f", updateInterval];
     self.updateIntervalLabel.text = [NSString stringWithFormat:@"%d Hz", recordingRateHz];
@@ -301,7 +334,7 @@ static const double accelerometerHzMin = 1;
     CHCSVWriter *writer = [[CHCSVWriter alloc] initWithOutputStream:stream encoding:NSUTF8StringEncoding delimiter:','];
     
     for (ACCitem *item in fetchObjects) {
-        [writer writeLineOfFields:@[item.acc_x,item.acc_y,item.acc_z,item.mark_flag,item.date,item.quat_w,item.quat_x,item.quat_y,item.quat_z]];
+        [writer writeLineOfFields:@[item.acc_x,item.acc_y,item.acc_z,item.mark_flag,item.date,item.quat_w,item.quat_x,item.quat_y,item.quat_z,item.quat_date]];
     }
     [writer closeStream];
     

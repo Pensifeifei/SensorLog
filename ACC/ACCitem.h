@@ -17,6 +17,7 @@
 @property (nonatomic, retain) NSNumber * acc_z;
 @property (nonatomic, retain) NSString * date;
 @property (nonatomic, retain) NSNumber * mark_flag;
+@property (nonatomic, retain) NSString * quat_date;
 @property (nonatomic, retain) NSNumber * quat_w;
 @property (nonatomic, retain) NSNumber * quat_x;
 @property (nonatomic, retain) NSNumber * quat_y;

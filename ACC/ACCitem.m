@@ -16,6 +16,7 @@
 @dynamic acc_z;
 @dynamic date;
 @dynamic mark_flag;
+@dynamic quat_date;
 @dynamic quat_w;
 @dynamic quat_x;
 @dynamic quat_y;

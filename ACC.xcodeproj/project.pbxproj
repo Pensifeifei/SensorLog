@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3E16204A1B7DC74800BFC0DF /* NSTimer+TimerBlocksSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1620491B7DC74800BFC0DF /* NSTimer+TimerBlocksSupport.m */; };
-		3E34F2031B7ED543005813B7 /* ACCitem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E34F2021B7ED543005813B7 /* ACCitem.m */; };
+		3E8F5F321B7F2AEC00C91F00 /* ACCitem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E8F5F311B7F2AEC00C91F00 /* ACCitem.m */; };
 		3E9A635A1B7B4254008484C6 /* CHCSVParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9A63591B7B4254008484C6 /* CHCSVParser.m */; };
 		3EB3294D1B6A142D00E59AC7 /* APLGraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB3294C1B6A142D00E59AC7 /* APLGraphViewController.m */; };
 		3EB3294F1B6A147500E59AC7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EB3294E1B6A147500E59AC7 /* QuartzCore.framework */; };
@@ -44,8 +44,8 @@
 /* Begin PBXFileReference section */
 		3E1620481B7DC74800BFC0DF /* NSTimer+TimerBlocksSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+TimerBlocksSupport.h"; sourceTree = "<group>"; };
 		3E1620491B7DC74800BFC0DF /* NSTimer+TimerBlocksSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+TimerBlocksSupport.m"; sourceTree = "<group>"; };
-		3E34F2011B7ED543005813B7 /* ACCitem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACCitem.h; sourceTree = "<group>"; };
-		3E34F2021B7ED543005813B7 /* ACCitem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACCitem.m; sourceTree = "<group>"; };
+		3E8F5F301B7F2AEC00C91F00 /* ACCitem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACCitem.h; sourceTree = "<group>"; };
+		3E8F5F311B7F2AEC00C91F00 /* ACCitem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACCitem.m; sourceTree = "<group>"; };
 		3E9A63581B7B4254008484C6 /* CHCSVParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCSVParser.h; sourceTree = "<group>"; };
 		3E9A63591B7B4254008484C6 /* CHCSVParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCSVParser.m; sourceTree = "<group>"; };
 		3EB3294B1B6A142D00E59AC7 /* APLGraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APLGraphViewController.h; sourceTree = "<group>"; };
@@ -202,8 +202,8 @@
 		3EBE739F1B4E5E1A00D0C2CF /* ACC Core Data Model */ = {
 			isa = PBXGroup;
 			children = (
-				3E34F2011B7ED543005813B7 /* ACCitem.h */,
-				3E34F2021B7ED543005813B7 /* ACCitem.m */,
+				3E8F5F301B7F2AEC00C91F00 /* ACCitem.h */,
+				3E8F5F311B7F2AEC00C91F00 /* ACCitem.m */,
 				3EBE73A91B4E676C00D0C2CF /* Model.xcdatamodeld */,
 			);
 			name = "ACC Core Data Model";
@@ -253,12 +253,11 @@
 		3EBE73561B4E167E00D0C2CF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = Mr.Chang;
 				TargetAttributes = {
 					3EBE735D1B4E167E00D0C2CF = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = L55SM8MN3Y;
 					};
 					3EBE73761B4E167E00D0C2CF = {
 						CreatedOnToolsVersion = 6.4;
@@ -318,7 +317,7 @@
 				3EB329591B6A170600E59AC7 /* ACCGraphViewController.m in Sources */,
 				3EBE739A1B4E184B00D0C2CF /* CoreDataHelper.m in Sources */,
 				3E16204A1B7DC74800BFC0DF /* NSTimer+TimerBlocksSupport.m in Sources */,
-				3E34F2031B7ED543005813B7 /* ACCitem.m in Sources */,
+				3E8F5F321B7F2AEC00C91F00 /* ACCitem.m in Sources */,
 				3EBE73641B4E167E00D0C2CF /* main.m in Sources */,
 				3EBE73AB1B4E676C00D0C2CF /* Model.xcdatamodeld in Sources */,
 				3E9A635A1B7B4254008484C6 /* CHCSVParser.m in Sources */,
@@ -376,6 +375,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -446,8 +446,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ACC/PrefixHeader.pch";
 				INFOPLIST_FILE = ACC/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "CWC.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -462,8 +463,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ACC/PrefixHeader.pch";
 				INFOPLIST_FILE = ACC/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "CWC.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -483,6 +485,7 @@
 				);
 				INFOPLIST_FILE = ACCTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "CWC.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ACC.app/ACC";
 			};
@@ -498,6 +501,7 @@
 				);
 				INFOPLIST_FILE = ACCTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "CWC.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ACC.app/ACC";
 			};
