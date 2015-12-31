@@ -1,2 +1,0 @@
-# SensorLog
-a sensorlog demo 
