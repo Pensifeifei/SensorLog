@@ -55,6 +55,7 @@
 @property (weak, nonatomic) IBOutlet UISlider *updateIntervalSlider;
 
 - (void)setLabelValueX:(double)x y:(double)y z:(double)z;
+- (void)setGryoLabelValueX:(double)x y:(double)y z:(double)z;
 - (void)setLabelValueRoll:(double)roll pitch:(double)pitch yaw:(double)yaw;
 - (void)startUpdatesWithSliderValue:(int)sliderValue;
 

@@ -23,12 +23,11 @@
 		3EBE737E1B4E167E00D0C2CF /* ACCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBE737D1B4E167E00D0C2CF /* ACCTests.m */; };
 		3EBE738E1B4E16DA00D0C2CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EBE738B1B4E16DA00D0C2CF /* Main.storyboard */; };
 		3EBE73921B4E175C00D0C2CF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EBE73911B4E175C00D0C2CF /* Foundation.framework */; };
-		3EBE73941B4E176E00D0C2CF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EBE73931B4E176E00D0C2CF /* CoreGraphics.framework */; };
 		3EBE73961B4E178100D0C2CF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EBE73951B4E178100D0C2CF /* UIKit.framework */; };
 		3EBE739A1B4E184B00D0C2CF /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBE73991B4E184B00D0C2CF /* CoreDataHelper.m */; };
 		3EBE739C1B4E188E00D0C2CF /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EBE739B1B4E188E00D0C2CF /* CoreData.framework */; };
 		3EBE73AB1B4E676C00D0C2CF /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3EBE73A91B4E676C00D0C2CF /* Model.xcdatamodeld */; };
-		3EBE73B01B4FA74900D0C2CF /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EBE73AF1B4FA74900D0C2CF /* CoreMotion.framework */; };
+		C7866FF71C3111D6002B34E7 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7866FF61C3111D6002B34E7 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,7 +56,7 @@
 		3EB329541B6A15B400E59AC7 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		3EB329571B6A170600E59AC7 /* ACCGraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACCGraphViewController.h; sourceTree = "<group>"; };
 		3EB329581B6A170600E59AC7 /* ACCGraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACCGraphViewController.m; sourceTree = "<group>"; };
-		3EBE735E1B4E167E00D0C2CF /* ACC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ACC.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3EBE735E1B4E167E00D0C2CF /* SensorLog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SensorLog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EBE73621B4E167E00D0C2CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3EBE73631B4E167E00D0C2CF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3EBE73651B4E167E00D0C2CF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -69,14 +68,13 @@
 		3EBE737D1B4E167E00D0C2CF /* ACCTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ACCTests.m; sourceTree = "<group>"; };
 		3EBE738B1B4E16DA00D0C2CF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		3EBE73911B4E175C00D0C2CF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		3EBE73931B4E176E00D0C2CF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		3EBE73951B4E178100D0C2CF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3EBE73981B4E184B00D0C2CF /* CoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataHelper.h; sourceTree = "<group>"; };
 		3EBE73991B4E184B00D0C2CF /* CoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataHelper.m; sourceTree = "<group>"; };
 		3EBE739B1B4E188E00D0C2CF /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		3EBE739E1B4E1D1D00D0C2CF /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		3EBE73AA1B4E676C00D0C2CF /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		3EBE73AF1B4FA74900D0C2CF /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		C7866FF61C3111D6002B34E7 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,11 +82,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7866FF71C3111D6002B34E7 /* AVFoundation.framework in Frameworks */,
 				3EB3294F1B6A147500E59AC7 /* QuartzCore.framework in Frameworks */,
-				3EBE73B01B4FA74900D0C2CF /* CoreMotion.framework in Frameworks */,
 				3EBE739C1B4E188E00D0C2CF /* CoreData.framework in Frameworks */,
 				3EBE73961B4E178100D0C2CF /* UIKit.framework in Frameworks */,
-				3EBE73941B4E176E00D0C2CF /* CoreGraphics.framework in Frameworks */,
 				3EBE73921B4E175C00D0C2CF /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -116,7 +113,7 @@
 		3EBE735F1B4E167E00D0C2CF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3EBE735E1B4E167E00D0C2CF /* ACC.app */,
+				3EBE735E1B4E167E00D0C2CF /* SensorLog.app */,
 				3EBE73771B4E167E00D0C2CF /* ACCTests.xctest */,
 			);
 			name = Products;
@@ -179,11 +176,10 @@
 		3EBE73901B4E172B00D0C2CF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C7866FF61C3111D6002B34E7 /* AVFoundation.framework */,
 				3EB3294E1B6A147500E59AC7 /* QuartzCore.framework */,
-				3EBE73AF1B4FA74900D0C2CF /* CoreMotion.framework */,
 				3EBE739B1B4E188E00D0C2CF /* CoreData.framework */,
 				3EBE73951B4E178100D0C2CF /* UIKit.framework */,
-				3EBE73931B4E176E00D0C2CF /* CoreGraphics.framework */,
 				3EBE73911B4E175C00D0C2CF /* Foundation.framework */,
 			);
 			name = Frameworks;
@@ -226,7 +222,7 @@
 			);
 			name = ACC;
 			productName = ACC;
-			productReference = 3EBE735E1B4E167E00D0C2CF /* ACC.app */;
+			productReference = 3EBE735E1B4E167E00D0C2CF /* SensorLog.app */;
 			productType = "com.apple.product-type.application";
 		};
 		3EBE73761B4E167E00D0C2CF /* ACCTests */ = {
@@ -258,6 +254,7 @@
 				TargetAttributes = {
 					3EBE735D1B4E167E00D0C2CF = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = L55SM8MN3Y;
 					};
 					3EBE73761B4E167E00D0C2CF = {
 						CreatedOnToolsVersion = 6.4;
@@ -374,6 +371,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -393,9 +391,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
 		};
@@ -419,6 +418,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -431,9 +431,11 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = NO;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
 		};
@@ -443,14 +445,20 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ACC",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ACC/PrefixHeader.pch";
 				INFOPLIST_FILE = ACC/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "CWC.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SensorLog;
 				PROVISIONING_PROFILE = "";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
 		};
@@ -460,14 +468,20 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ACC",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ACC/PrefixHeader.pch";
 				INFOPLIST_FILE = ACC/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "CWC.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SensorLog;
 				PROVISIONING_PROFILE = "";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
 		};

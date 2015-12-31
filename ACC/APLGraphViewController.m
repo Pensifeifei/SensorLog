@@ -57,6 +57,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *yLabel;
 @property (weak, nonatomic) IBOutlet UILabel *zLabel;
 
+@property (strong, nonatomic) IBOutlet UILabel *xLabel_gryo;
+@property (strong, nonatomic) IBOutlet UILabel *yLabel_gryo;
+@property (strong, nonatomic) IBOutlet UILabel *zLabel_gryo;
+
 
 @end
 
@@ -70,7 +74,7 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    self.updateIntervalSlider.value = 0.0f;
+    self.updateIntervalSlider.value = 0.00f;
     self.updateIntervalSlider.maximumValue = 0.99f;
 }
 
@@ -102,6 +106,13 @@
     self.xLabel.text = [NSString stringWithFormat:@"x: %f", x];
     self.yLabel.text = [NSString stringWithFormat:@"y: %f", y];
     self.zLabel.text = [NSString stringWithFormat:@"z: %f", z];
+}
+
+- (void)setGryoLabelValueX:(double)x y:(double)y z:(double)z
+{
+    self.xLabel_gryo.text = [NSString stringWithFormat:@"x: %f", x];
+    self.yLabel_gryo.text = [NSString stringWithFormat:@"y: %f", y];
+    self.zLabel_gryo.text = [NSString stringWithFormat:@"z: %f", z];
 }
 
 - (void)setLabelValueRoll:(double)roll pitch:(double)pitch yaw:(double)yaw
