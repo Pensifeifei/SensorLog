@@ -9,13 +9,14 @@
         <attribute name="gyro_y" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="gyro_z" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="mark_flag" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="quat_date" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="quat_w" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="quat_x" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="quat_y" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="quat_z" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="pitch" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="roll" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="userAcc_x" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="userAcc_y" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="userAcc_z" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="yaw" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
     </entity>
     <elements>
-        <element name="ACCitem" positionX="-45" positionY="638" width="128" height="240"/>
+        <element name="ACCitem" positionX="-45" positionY="638" width="128" height="255"/>
     </elements>
 </model>

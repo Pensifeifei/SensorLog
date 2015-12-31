@@ -26,10 +26,10 @@ static const int state3 = 3;
 static const int state4 = 4;
 
 typedef enum {
-    kDeviceMotionGraphTypeAttitude = 0,
-    kDeviceMotionGraphTypeRotationRate,
-    kDeviceMotionGraphTypeGravity,
-    kDeviceMotionGraphTypeUserAcceleration
+    kDeviceMotionGraphTypeRotationRate = 0,
+    kDeviceMotionGraphTypeAttitude,
+    kDeviceMotionGraphTypeUserAcceleration,
+    kDeviceMotionGraphTypeAcc
 } DeviceMotionGraphType;
 
 @interface ACCGraphViewController ()<AVCaptureFileOutputRecordingDelegate,RPPreviewViewControllerDelegate>//视频文件输出代理
@@ -42,25 +42,25 @@ typedef enum {
     NSTimer *timerOfRecord;
     float timeOfSeconds;
     
-    double gyro_x;
-    double gyro_y;
-    double gyro_z;
-    double quat_w;
-    double quat_x;
-    double quat_y;
-    double quat_z;
+    double acc_x;
+    double acc_y;
+    double acc_z;
+
     NSString *quat_date;
     
 }
 
 @property (strong ,nonatomic) CoreDataHelper *cdh;
-@property (weak, nonatomic) IBOutlet APLGraphView *graphViewACC;
-@property (weak, nonatomic) IBOutlet APLGraphView *graphViewGRYO;
+@property (strong, nonatomic) IBOutletCollection(APLGraphView) NSArray *graphViews;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
+@property (strong, nonatomic) NSArray *graphTitles;
+
 
 @property (weak, nonatomic) IBOutlet UIButton *setRecordingRateBtn;
 @property (weak, nonatomic) IBOutlet UILabel *rateOfRecord;
 @property (weak, nonatomic) IBOutlet UILabel *timeOfRecord;
 @property (weak, nonatomic) IBOutlet UILabel *sizeOfRecordFile;
+@property (weak, nonatomic) IBOutlet UILabel *graphLabel;
 
 @property (weak, nonatomic) IBOutlet UIButton *stateFlag0Btn;
 @property (weak, nonatomic) IBOutlet UIButton *stateFlag1Btn;
@@ -70,10 +70,6 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UIButton *startRecordBtn;
 @property (weak, nonatomic) IBOutlet UIButton *stopRecordBtn;
 
-@property (weak, nonatomic) IBOutlet UILabel *w;
-@property (weak, nonatomic) IBOutlet UILabel *x;
-@property (weak, nonatomic) IBOutlet UILabel *y;
-@property (weak, nonatomic) IBOutlet UILabel *z;
 @property (weak, nonatomic) IBOutlet UIView *viewContainer;
 
 @property (strong,nonatomic) AVCaptureSession *captureSession;//负责输入和输出设备之间的数据传递
@@ -194,6 +190,25 @@ typedef enum {
     self.timeOfRecord.text = [NSString stringWithFormat:@"%.1f S",timeOfSeconds];
     
     self.sizeOfRecordFile.text = @"0 Kb";
+    self.graphTitles = @[ @"GYRO:", @"Attidute:", @"UserAcc:", @"ACC:"];
+    [self showGraphAtIndex:0];
+}
+
+- (IBAction)segmentedControlChanged:(UISegmentedControl *)sender
+{
+    NSUInteger selectedIndex = sender.selectedSegmentIndex;
+    [self showGraphAtIndex:selectedIndex];
+}
+
+- (void)showGraphAtIndex:(NSUInteger)selectedIndex
+{
+    [self.graphViews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        BOOL hidden = (idx != selectedIndex);
+        UIView *graphView = obj;
+        graphView.hidden = hidden;
+    }];
+    
+    self.graphLabel.text = [self.graphTitles objectAtIndex:selectedIndex];
 }
 /**
  *  获取当前时间日期
@@ -224,12 +239,29 @@ typedef enum {
 
     
     ACCGraphViewController * __weak weakSelf = self;
-    if ([mManager isAccelerometerAvailable] == YES ) {
-        [mManager setAccelerometerUpdateInterval:updateInterval];
-        [mManager startAccelerometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {
-                [weakSelf.graphViewACC addX:accelerometerData.acceleration.x y:accelerometerData.acceleration.y z:accelerometerData.acceleration.z];
-                [weakSelf setLabelValueX:accelerometerData.acceleration.x y:accelerometerData.acceleration.y z:accelerometerData.acceleration.z];
-
+    if ([mManager isDeviceMotionAvailable] == YES) {
+        [mManager setDeviceMotionUpdateInterval:updateInterval];
+        [mManager startDeviceMotionUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMDeviceMotion *deviceMotion, NSError *error) {
+            // attitude
+            [[weakSelf.graphViews objectAtIndex:kDeviceMotionGraphTypeAttitude] addX:deviceMotion.attitude.roll y:deviceMotion.attitude.pitch z:deviceMotion.attitude.yaw];
+            //rotationRate
+            [[weakSelf.graphViews objectAtIndex:kDeviceMotionGraphTypeRotationRate] addX:deviceMotion.rotationRate.x y:deviceMotion.rotationRate.y z:deviceMotion.rotationRate.z];
+            // userAcceleration
+            [[weakSelf.graphViews objectAtIndex:kDeviceMotionGraphTypeUserAcceleration] addX:deviceMotion.userAcceleration.x y:deviceMotion.userAcceleration.y z:deviceMotion.userAcceleration.z];
+            
+            switch (weakSelf.segmentedControl.selectedSegmentIndex) {
+                case kDeviceMotionGraphTypeRotationRate:
+                    [weakSelf setLabelValueX:deviceMotion.rotationRate.x y:deviceMotion.rotationRate.y z:deviceMotion.rotationRate.z];
+                    break;
+                case kDeviceMotionGraphTypeAttitude:
+                    [weakSelf setLabelValueRoll:deviceMotion.attitude.roll pitch:deviceMotion.attitude.pitch yaw:deviceMotion.attitude.yaw];
+                    break;
+                case kDeviceMotionGraphTypeUserAcceleration:
+                    [weakSelf setLabelValueX:deviceMotion.userAcceleration.x y:deviceMotion.userAcceleration.y z:deviceMotion.userAcceleration.z];
+                    break;
+                default:
+                    break;
+            }
             if (isRecord) {
                 NSNumber *tempFlag = [[NSNumber alloc]initWithInt:stateFlag];
                 NSString *dateStr = [weakSelf toGetCurrentTimeToMiliSecondsStr];
@@ -237,59 +269,41 @@ typedef enum {
                 
                 
                 ACCitem *newItem = [NSEntityDescription insertNewObjectForEntityForName:@"ACCitem" inManagedObjectContext:weakSelf.cdh.managedObjectContext];
-                newItem.acc_x = [NSNumber numberWithDouble:accelerometerData.acceleration.x];
-                newItem.acc_y = [NSNumber numberWithDouble:accelerometerData.acceleration.y];
-                newItem.acc_z = [NSNumber numberWithDouble:accelerometerData.acceleration.z];
+                newItem.gyro_x = [NSNumber numberWithDouble:deviceMotion.rotationRate.x];
+                newItem.gyro_y = [NSNumber numberWithDouble:deviceMotion.rotationRate.y];
+                newItem.gyro_z = [NSNumber numberWithDouble:deviceMotion.rotationRate.z];
+                
+                newItem.roll = [NSNumber numberWithDouble:deviceMotion.attitude.roll];
+                newItem.pitch = [NSNumber numberWithDouble:deviceMotion.attitude.pitch];
+                newItem.yaw = [NSNumber numberWithDouble:deviceMotion.attitude.yaw];
+                
+                newItem.userAcc_x = [NSNumber numberWithDouble:deviceMotion.userAcceleration.x];
+                newItem.userAcc_y = [NSNumber numberWithDouble:deviceMotion.userAcceleration.y];
+                newItem.userAcc_z = [NSNumber numberWithDouble:deviceMotion.userAcceleration.z];
+                
+                newItem.acc_x = [NSNumber numberWithDouble:acc_x];
+                newItem.acc_y = [NSNumber numberWithDouble:acc_y];
+                newItem.acc_z = [NSNumber numberWithDouble:acc_z];
                 newItem.date = dateStr;
                 newItem.mark_flag = tempFlag;
-
-                newItem.gyro_x = [NSNumber numberWithDouble:gyro_x];
-                newItem.gyro_y = [NSNumber numberWithDouble:gyro_y];
-                newItem.gyro_z = [NSNumber numberWithDouble:gyro_z];
-                
-                newItem.quat_w = [NSNumber numberWithDouble:quat_w];
-                newItem.quat_x = [NSNumber numberWithDouble:quat_x];
-                newItem.quat_y = [NSNumber numberWithDouble:quat_y];
-                newItem.quat_z = [NSNumber numberWithDouble:quat_z];
-                newItem.quat_date = quat_date;
             }
-        }];
-    }
-    
-    if ([mManager isGyroAvailable] == YES) {
-        [mManager setGyroUpdateInterval:updateInterval];
-        [mManager startGyroUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMGyroData *gyroData, NSError *error) {
-                [weakSelf.graphViewGRYO addX:gyroData.rotationRate.x y:gyroData.rotationRate.y z:gyroData.rotationRate.z];
-                [weakSelf setGryoLabelValueX:gyroData.rotationRate.x y:gyroData.rotationRate.y z:gyroData.rotationRate.z];
-            
-            gyro_x = gyroData.rotationRate.x;
-            gyro_y = gyroData.rotationRate.y;
-            gyro_z = gyroData.rotationRate.z;
-        }];
 
-    }
-    
-    if ([mManager isDeviceMotionAvailable] == YES) {
-        [mManager setDeviceMotionUpdateInterval:updateInterval];
-        [mManager startDeviceMotionUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMDeviceMotion *deviceMotion, NSError *error) {
-            CMQuaternion quat = deviceMotion.attitude.quaternion;
-
-            NSString *dateStr = [weakSelf toGetCurrentTimeToMiliSecondsStr];
-            NSLog(@"device----date///%@",dateStr);
-            quat_w = quat.w;
-            quat_x = quat.x;
-            quat_y = quat.y;
-            quat_z = quat.z;
-            quat_date = dateStr;
-            
-            weakSelf.w.text = [NSString stringWithFormat:@"%f",quat.w];
-            weakSelf.x.text = [NSString stringWithFormat:@"%f",quat.x];
-            weakSelf.y.text = [NSString stringWithFormat:@"%f",quat.y];
-            weakSelf.z.text = [NSString stringWithFormat:@"%f",quat.z];
-            
         }];
     }
     
+    if ([mManager isAccelerometerAvailable] == YES ) {
+        [mManager setAccelerometerUpdateInterval:updateInterval];
+        [mManager startAccelerometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {
+            // ACC
+            [[weakSelf.graphViews objectAtIndex:kDeviceMotionGraphTypeAcc] addX:accelerometerData.acceleration.x y:accelerometerData.acceleration.y z:accelerometerData.acceleration.z];
+            if (weakSelf.segmentedControl.selectedSegmentIndex == kDeviceMotionGraphTypeAcc)
+            [weakSelf setLabelValueX:accelerometerData.acceleration.x y:accelerometerData.acceleration.y z:accelerometerData.acceleration.z];
+            acc_x = accelerometerData.acceleration.x;
+            acc_y = accelerometerData.acceleration.y;
+            acc_z = accelerometerData.acceleration.z;
+
+        }];
+    }
     self.updateIntervalLabel.text = [NSString stringWithFormat:@"%d Hz", (int)recordingRateHz];
     
 }
@@ -450,7 +464,7 @@ typedef enum {
     CHCSVWriter *writer = [[CHCSVWriter alloc] initWithOutputStream:stream encoding:NSUTF8StringEncoding delimiter:NO];
     
     for (ACCitem *item in fetchObjects) {
-        [writer writeLineOfFields:@[@"time:",item.date,@",",@"acc_x:",item.acc_x,@",",@"acc_y:",item.acc_y,@",",@"acc_z:",item.acc_z,@",",@"gyro_x:",item.gyro_x,@",",@"gyro_y:",item.gyro_y,@",",@"gyro_z:",item.gyro_z,@",",@"quat_date:",item.quat_date,@",",@"quat_w:",item.quat_w,@",",@"quat_x:",item.quat_x,@",",@"quat_y:",item.quat_y,@",",@"quat_z:",item.quat_z,@",",@"state:",item.mark_flag]];
+        [writer writeLineOfFields:@[@"time:",item.date,@",",@"acc_x:",item.acc_x,@",",@"acc_y:",item.acc_y,@",",@"acc_z:",item.acc_z,@",",@"gyro_x:",item.gyro_x,@",",@"gyro_y:",item.gyro_y,@",",@"gyro_z:",item.gyro_z,@",",@"roll:",item.roll,@",",@"pitch:",item.pitch,@",",@"yaw:",item.yaw,@",",@"userAcc_x:",item.userAcc_x,@",",@"userAcc_y:",item.userAcc_y,@",",@"userAcc_z:",item.userAcc_z,@",",@"state:",item.mark_flag]];
         
 //        NSDictionary *sensorDic = [NSDictionary dictionaryWithObjectsAndKeys:item.date,@"time",item.acc_x,@"acc_x",item.acc_y,@"acc_y",item.acc_z,@"acc_z",item.gyro_x,@"gyro_x",item.gyro_y,@"gyrp_y",item.gyro_z,@"gyro_z",item.quat_date,@"quat_date",item.quat_w,@"quat_w",item.quat_x,@"quat_x",item.quat_y,@"quat_y",item.quat_z,@"quat_z",item.mark_flag,@"state",nil];
 //        [writer writeLineWithDictionary:sensorDic];

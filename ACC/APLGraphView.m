@@ -345,7 +345,6 @@ void DrawGridlines(CGContextRef context, CGFloat x, CGFloat width)
     NSDictionary *dict = [NSDictionary dictionaryWithObjects:
                           [NSArray arrayWithObjects:[UIColor whiteColor],[UIFont systemFontOfSize:12.0], paragrahStyle,nil] forKeys:
                           [NSArray arrayWithObjects:NSForegroundColorAttributeName,NSFontAttributeName, NSParagraphStyleAttributeName,nil]];
-    
     [@"+3.0" drawInRect:CGRectMake(2.0, -56.0, 24.0, 16.0) withAttributes:dict];
     [@"+2.0" drawInRect:CGRectMake(2.0, -40.0, 24.0, 16.0) withAttributes:dict];
     [@"+1.0" drawInRect:CGRectMake(2.0, -24.0, 24.0, 16.0) withAttributes:dict];
@@ -353,6 +352,8 @@ void DrawGridlines(CGContextRef context, CGFloat x, CGFloat width)
     [@"-1.0" drawInRect:CGRectMake(2.0,   8.0, 24.0, 16.0) withAttributes:dict];
     [@"-2.0" drawInRect:CGRectMake(2.0,  24.0, 24.0, 16.0) withAttributes:dict];
     [@"-3.0" drawInRect:CGRectMake(2.0,  40.0, 24.0, 16.0) withAttributes:dict];
+    [@"-4.0" drawInRect:CGRectMake(2.0,  56.0, 24.0, 16.0) withAttributes:dict];
+ 
     
 //    [@"+3.0" drawInRect:CGRectMake(2.0, -56.0, 24.0, 16.0) withFont:systemFont lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentRight];
 //    [@"+2.0" drawInRect:CGRectMake(2.0, -40.0, 24.0, 16.0) withFont:systemFont lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentRight];
